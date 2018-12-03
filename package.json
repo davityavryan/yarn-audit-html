@@ -1,0 +1,17 @@
+{
+    "name": "yarn-audit-html",
+    "version": "0.1.2",
+    "description": "Generate a HTML report for Yarn Audit",
+    "main": "index.js",
+    "bin": {
+        "yarn-audit-html": "index.js"
+    },
+    "license": "MIT",
+    "repository": "davityavryan/yarn-audit-html",
+    "dependencies": {
+        "commander": "^2.15.1",
+        "date-fns": "^2.0.0-alpha.25",
+        "handlebars": "^4.0.11",
+        "marked": "^0.5.2"
+    }
+}

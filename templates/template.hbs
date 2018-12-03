@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Yarn Audit Report</title>
+    <meta name="description" content="{{summary.vulnerabilities}} known vulnerabilities found.">
+</head>
+
+<body>
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md text-center">
+            <h1>Yarn Audit Report</h1>
+
+            <h3>
+                {{#if showUnique}}
+                    {{vulnerabilities.length}} unique from
+                {{/if}}
+                {{summary.vulnerabilities}} known vulnerabilities |
+                {{summary.totalDependencies}} dependencies
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        {{#each vulnerabilities}}
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h1 class="card-title">
+                            <span class="badge badge-{{severityClass severity}}">{{severity}}</span>
+                            {{title}}
+                        </h1>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>Module:
+                                        <a href="https://npmjs.com/package/{{module_name}}">{{module_name}}</a>
+                                    </li>
+                                    {{#if version}}
+                                        <li>Installed version: {{version}}</li>
+                                    {{/if}}
+                                    <li>Published: {{date created "MMMM dd yyyy, hh:mm:ss"}}</li>
+                                    <li>Reported by: {{reported_by.name}}</li>
+                                    <li>{{cwe}}</li>
+                                    {{#each cves}}
+                                        <li>{{this}}</li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>Vulnerable: {{vulnerable_versions}}</li>
+                                    <li>Patched: {{patched_versions}}</li>
+                                    <li>CVSS: {{metadata.exploitability}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h3>Overview</h3>
+                        <p class="card-text">{{{markdown overview}}}</p>
+
+                        {{#if recommendation}}
+                            <h3>Remediation</h3>
+                            <p class="card-text">{{{markdown recommendation}}}</p>
+                        {{/if}}
+                        {{#if references}}
+                            <h3>References</h3>
+                            <p class="card-text">{{{markdown references}}}</p>
+                        {{/if}}
+                        {{#if paths.length}}
+                            <h3>Reasons this module exists</h3>
+                            {{#each paths}}
+                                <p class="card-text">
+                                    <code>{{this}}</code>
+                                </p>
+                            {{/each}}
+                        {{/if}}
+
+                        <a href="{{url}}" class="btn btn-primary">More about this vulnerability</a>
+                    </div>
+                </div>
+            </div>
+        {{else}}
+            <div class="col-md-12 alert alert-success">
+                Congrats!!! No vulnerabilities have been found.
+            </div>
+        {{/each}}
+
+        <h6 class="col-md-12 mb-3 text-right">Report generated at {{date reportDate "MMMM dd yyyy, hh:mm:ss"}}.</h6>
+    </div>
+</div>
+</body>
+
+</html>
