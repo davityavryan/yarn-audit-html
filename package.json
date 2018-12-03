@@ -8,6 +8,7 @@
     },
     "license": "MIT",
     "repository": "davityavryan/yarn-audit-html",
+    "keywords": ["yarn", "audit", "report"],
     "dependencies": {
         "commander": "^2.15.1",
         "date-fns": "^2.0.0-alpha.25",
