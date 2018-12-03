@@ -9,6 +9,58 @@
 
     <title>Yarn Audit Report</title>
     <meta name="description" content="{{summary.vulnerabilities}} known vulnerabilities found.">
+
+    <style>
+        label {
+            position: relative;
+
+            display: block;
+            padding-left: 30px;
+
+            cursor: pointer;
+        }
+
+        label:before {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+
+            width: 0;
+            height: 0;
+
+            border-left: 8px solid black;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            margin-top: -8px;
+
+            content: "";
+        }
+
+        input[type=checkbox] {
+            visibility: hidden;
+        }
+
+        input[type=checkbox]:checked ~ h3 label:before {
+            border-left: 8px solid transparent;
+            border-top: 8px solid black;
+            border-right: 8px solid transparent;
+
+            margin-left: -4px;
+            margin-top: -4px
+        }
+
+        .collapsible-wrapper {
+            max-height: 0;
+            padding-left: 30px;
+            overflow-y: auto;
+
+            transition: max-height 0.15s ease;
+        }
+
+        input[type=checkbox]:checked ~ h3 ~ .collapsible-wrapper {
+            max-height: 500px;
+        }
+    </style>
 </head>
 
 <body>
@@ -61,23 +113,26 @@
                             </div>
                         </div>
                         <h3>Overview</h3>
-                        <p class="card-text">{{{markdown overview}}}</p>
+                        <div class="card-text">{{{markdown overview}}}</div>
 
                         {{#if recommendation}}
                             <h3>Remediation</h3>
-                            <p class="card-text">{{{markdown recommendation}}}</p>
+                            <div class="card-text">{{{markdown recommendation}}}</div>
                         {{/if}}
                         {{#if references}}
                             <h3>References</h3>
-                            <p class="card-text">{{{markdown references}}}</p>
+                            <div class="card-text">{{{markdown references}}}</div>
                         {{/if}}
                         {{#if paths.length}}
-                            <h3>Reasons this module exists</h3>
-                            {{#each paths}}
-                                <p class="card-text">
-                                    <code>{{this}}</code>
-                                </p>
-                            {{/each}}
+                            <input id="vulnerability-reasons-{{@index}}" type="checkbox">
+                            <h3><label for="vulnerability-reasons-{{@index}}">Reasons this module exists</label></h3>
+                            <div class="mb-3 collapsible-wrapper">
+                                {{#each paths}}
+                                    <div class="card-text">
+                                        <code>{{this}}</code>
+                                    </div>
+                                {{/each}}
+                            </div>
                         {{/if}}
 
                         <a href="{{url}}" class="btn btn-primary">More about this vulnerability</a>
