@@ -1,5 +1,13 @@
 # yarn-audit-html
 
+![](https://img.shields.io/david/davityavryan/yarn-audit-html.svg?style=flat-square)
+![](https://img.shields.io/david/dev/davityavryan/yarn-audit-html.svg?style=flat-square)
+![](https://img.shields.io/david/peer/davityavryan/yarn-audit-html.svg?style=flat-square)
+![](https://img.shields.io/github/last-commit/davityavryan/yarn-audit-html.svg?style=flat-square)
+![](https://img.shields.io/snyk/vulnerabilities/npm/yarn-audit-html.svg?style=flat-square)
+[![](https://img.shields.io/lgtm/alerts/g/davityavryan/yarn-audit-html.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davityavryan/yarn-audit-html/alerts/)
+[![](https://flat.badgen.net/packagephobia/install/yarn-audit-html)](https://packagephobia.now.sh/result?p=yarn-audit-html)
+
 ## Generate a HTML report for Yarn Audit
 
 ## Install
