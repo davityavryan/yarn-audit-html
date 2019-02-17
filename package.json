@@ -3,9 +3,6 @@
     "version": "0.1.6",
     "description": "Generate a HTML report for Yarn Audit",
     "main": "index.js",
-    "bin": {
-        "yarn-audit-html": "index.js"
-    },
     "license": "MIT",
     "repository": "davityavryan/yarn-audit-html",
     "keywords": [
@@ -13,9 +10,16 @@
         "audit",
         "report"
     ],
+    "bin": {
+        "yarn-audit-html": "index.js"
+    },
+    "engines": {
+        "node": ">=7.6",
+        "yarn": ">=1.12.3"
+    },
     "dependencies": {
-        "commander": "^2.17.1",
-        "handlebars": "^4.0.12",
-        "marked": "^0.5.2"
+        "commander": "^2.19.0",
+        "handlebars": "^4.1.0",
+        "marked": "^0.6.0"
     }
 }
