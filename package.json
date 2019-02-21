@@ -20,6 +20,6 @@
     "dependencies": {
         "commander": "^2.19.0",
         "handlebars": "^4.1.0",
-        "marked": "^0.6.0"
+        "marked": "^0.6.1"
     }
 }
