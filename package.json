@@ -1,6 +1,6 @@
 {
     "name": "yarn-audit-html",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "description": "Generate a HTML report for Yarn Audit",
     "main": "index.js",
     "license": "MIT",
