@@ -11,6 +11,10 @@
     <meta name="description" content="<%= summary.vulnerabilities %> known vulnerabilities found.">
 
     <style>
+        html {
+            font-size: 20px;
+        }
+
         label {
             position: relative;
 
@@ -135,13 +139,10 @@
                             </div>
                         <% } %>
 
-                        <a href="<%= vulnerability.url %>" class="btn btn-primary">More about this vulnerability</a>
+                        <a href="<%= vulnerability.url %>" class="btn btn-lg btn-primary">More about this vulnerability</a>
                     </div>
                 </div>
             </div>
-            <!--<div class="col-md-12 alert alert-success">-->
-                <!--Congrats!!! No vulnerabilities have been found.-->
-            <!--</div>-->
         <% }) %>
         <% if (vulnerabilities.length === 0) { %>
             <div class="col-md-12 alert alert-success">
