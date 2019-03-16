@@ -19,7 +19,7 @@
     },
     "dependencies": {
         "commander": "^2.19.0",
-        "handlebars": "^4.1.0",
+        "ejs": "^2.6.1",
         "marked": "^0.6.1"
     },
     "files": [

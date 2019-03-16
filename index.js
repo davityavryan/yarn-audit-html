@@ -7,7 +7,7 @@ const pkg = require('./package.json');
 program
     .version(pkg.version)
     .option('-o, --output [output]', 'output file')
-    .option('-t, --template [handlebars file]', 'handlebars template file')
+    .option('-t, --template [ejs file]', 'ejs template file')
     .option('--no-unique', 'show all vulnerability entries');
 
 const genReport = (stdin, output = 'yarn-audit.html', template, showUnique = true) => {
@@ -22,11 +22,11 @@ const genReport = (stdin, output = 'yarn-audit.html', template, showUnique = tru
     try {
         json = data.map(JSON.parse);
     } catch (err) {
-        console.error('Failed to parse NPM Audit JSON!');
+        console.error('Failed to parse NPM Audit JSON!\n', err);
         return process.exit(1);
     }
 
-    const templateFile = template || `${__dirname}/templates/template.hbs`;
+    const templateFile = template || `${__dirname}/templates/template.ejs`;
 
     reporter(json, templateFile, output, showUnique)
         .then(() => {

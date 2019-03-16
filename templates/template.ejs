@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/materia/bootstrap.min.css" rel="stylesheet" integrity="sha384-SYbiks6VdZNAKT8DNoXQZwXAiuUo5/quw6nMKtFlGO/4WwxW86BSTMtgdzzB9JJl" crossorigin="anonymous">
+
+    <title>Yarn Audit Report</title>
+    <meta name="description" content="<%= summary.vulnerabilities %> known vulnerabilities found.">
+
+    <style>
+        label {
+            position: relative;
+
+            display: block;
+            padding-left: 30px;
+
+            cursor: pointer;
+        }
+
+        label:before {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+
+            width: 0;
+            height: 0;
+
+            border-left: 8px solid black;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            margin-top: -8px;
+
+            content: "";
+        }
+
+        input[type=checkbox] {
+            visibility: hidden;
+        }
+
+        input[type=checkbox]:checked ~ h3 label:before {
+            border-left: 8px solid transparent;
+            border-top: 8px solid black;
+            border-right: 8px solid transparent;
+
+            margin-left: -4px;
+            margin-top: -4px
+        }
+
+        .collapsible-wrapper {
+            max-height: 0;
+            padding-left: 30px;
+            overflow-y: auto;
+
+            transition: max-height 0.15s ease;
+        }
+
+        input[type=checkbox]:checked ~ h3 ~ .collapsible-wrapper {
+            max-height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-md text-center">
+            <h1>Yarn Audit Report</h1>
+
+            <h3>
+                <% if (showUnique) { %>
+                    <%= vulnerabilities.length %> unique from
+                <% } %>
+                <%= summary.vulnerabilities %> known vulnerabilities |
+                <%= summary.totalDependencies %> dependencies
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+        <% vulnerabilities.forEach((vulnerability, vulnerabilityIndex) => { %>
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h1 class="card-title">
+                            <span class="badge badge-<%= severityClass(vulnerability.severity) %>"><%= vulnerability.severity %></span>
+                            <%= vulnerability.title %>
+                        </h1>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>Module:
+                                        <a href="https://npmjs.com/package/<%= vulnerability.module_name %>"><%= vulnerability.module_name %></a>
+                                    </li>
+                                    <% if (vulnerability.version) { %>
+                                        <li>Installed version: <%= vulnerability.version %></li>
+                                    <% } %>
+                                    <li>Published: <%= formatDate(vulnerability.created) %></li>
+                                    <li>Reported by: <%= vulnerability.reported_by.name %></li>
+                                    <li><%= vulnerability.cwe %></li>
+                                    <% vulnerability.cves.forEach((cweItem) => { %>
+                                        <li><%= cweItem %></li>
+                                    <% }) %>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>Vulnerable: <%= vulnerability.vulnerable_versions %></li>
+                                    <li>Patched: <%= vulnerability.patched_versions %></li>
+                                    <li>CVSS: <%= vulnerability.metadata.exploitability %></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h3>Overview</h3>
+                        <div class="card-text"><%- markdown(vulnerability.overview) %></div>
+
+                        <% if (vulnerability.recommendation) { %>
+                            <h3>Remediation</h3>
+                            <div class="card-text"><%- markdown(vulnerability.recommendation) %></div>
+                        <% } %>
+                        <% if (vulnerability.references) { %>
+                            <h3>References</h3>
+                            <div class="card-text"><%- markdown(vulnerability.references) %></div>
+                        <% } %>
+                        <% if (vulnerability.paths.length) { %>
+                            <input id="vulnerability-reasons-<%= vulnerabilityIndex %>" type="checkbox">
+                            <h3><label for="vulnerability-reasons-<%= vulnerabilityIndex %>">Reasons this module exists</label></h3>
+                            <div class="mb-3 collapsible-wrapper">
+                                <% vulnerability.paths.forEach((path) => { %>
+                                    <div class="card-text">
+                                        <code><%= path %></code>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        <% } %>
+
+                        <a href="<%= vulnerability.url %>" class="btn btn-primary">More about this vulnerability</a>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-md-12 alert alert-success">-->
+                <!--Congrats!!! No vulnerabilities have been found.-->
+            <!--</div>-->
+        <% }) %>
+        <% if (vulnerabilities.length === 0) { %>
+            <div class="col-md-12 alert alert-success">
+                Congrats!!! No vulnerabilities have been found.
+            </div>
+        <% } %>
+
+        <h6 class="col-md-12 mb-3 text-right">Report generated at <%= formatDate(reportDate) %>.</h6>
+    </div>
+</div>
+</body>
+
+</html>
