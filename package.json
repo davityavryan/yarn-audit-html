@@ -19,7 +19,7 @@
     },
     "dependencies": {
         "commander": "^5.1.0",
-        "ejs": "~3.0.2",
+        "ejs": "~3.1.0",
         "marked": "^1.0.0"
     },
     "files": [
