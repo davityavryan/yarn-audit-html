@@ -18,9 +18,9 @@
         "yarn": ">=1.12.3"
     },
     "dependencies": {
-        "commander": "^4.0.0",
-        "ejs": "^3.0.0",
-        "marked": "^0.8.0"
+        "commander": "^5.1.0",
+        "ejs": "~3.0.2",
+        "marked": "^1.0.0"
     },
     "files": [
         "lib",
