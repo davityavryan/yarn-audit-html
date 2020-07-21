@@ -4,5 +4,6 @@
 node_modules/
 
 yarn-audit.html
+yarn-audit.*.html
 *.log
 
