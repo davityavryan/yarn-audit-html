@@ -15,7 +15,7 @@
     },
     "engines": {
         "node": ">=10",
-        "yarn": ">=1.22.4"
+        "yarn": ">=1"
     },
     "dependencies": {
         "commander": "^6.0.0",
