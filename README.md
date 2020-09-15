@@ -45,6 +45,11 @@ You can also fully customize the generated report by providing `--template` opti
 yarn audit --json | yarn-audit-html --template ./my-awesome-template.ejs
 ```
 
+If you'd like the generator to exit with non-zero exit code when vulnerabilities are found, you can add the `--fatal-exit-code` option:
+```bash
+yarn audit --json | yarn-audit-html --fatal-exit-code
+```
+
 Inspired by [npm-audit-html](https://github.com/Filiosoft/npm-audit-html) package.
 
 ## License
