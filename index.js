@@ -29,8 +29,13 @@ const genReport = (stdin, output = 'yarn-audit.html', template, showUnique = tru
     const templateFile = template || `${__dirname}/templates/template.ejs`;
 
     reporter(json, templateFile, output, showUnique)
-        .then(() => {
-            console.log(`Vulnerability snapshot saved at ${output}`);
+        .then((modifiedData) => {
+            if (modifiedData.summary.vulnerabilities > 0) {
+                console.log(`Vulnerability snapshot saved at ${output}`);
+                process.exit(1);    
+            }
+
+            console.log('No vulnerabilities found.');
             process.exit(0);
         })
         .catch((error) => {
