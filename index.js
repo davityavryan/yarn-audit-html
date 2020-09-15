@@ -8,9 +8,10 @@ program
     .version(pkg.version)
     .option('-o, --output [output]', 'output file')
     .option('-t, --template [ejs file]', 'ejs template file')
-    .option('--no-unique', 'show all vulnerability entries');
+    .option('--no-unique', 'show all vulnerability entries')
+    .option('--fatal-exit-code', 'exit with code 1 if vulnerabilities were found');
 
-const genReport = (stdin, output = 'yarn-audit.html', template, showUnique = true) => {
+const genReport = (stdin, output = 'yarn-audit.html', template, showUnique = true, fatalExitCode = false) => {
     if (!stdin) {
         console.log('No JSON');
         return process.exit(1);
@@ -32,7 +33,10 @@ const genReport = (stdin, output = 'yarn-audit.html', template, showUnique = tru
         .then((modifiedData) => {
             if (modifiedData.summary.vulnerabilities > 0) {
                 console.log(`Vulnerability snapshot saved at ${output}`);
-                process.exit(1);    
+                if (fatalExitCode) {
+                    process.exit(1);    
+                }
+                process.exit(0);    
             }
 
             console.log('No vulnerabilities found.');
@@ -59,6 +63,6 @@ if (process.stdin.isTTY) {
     process.stdin.on('end', function () {
         program.parse(process.argv);
 
-        genReport(stdin, program.output, program.template, program.unique);
+        genReport(stdin, program.output, program.template, program.unique, program.fatalExitCode);
     });
 }
