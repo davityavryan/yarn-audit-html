@@ -8,6 +8,7 @@
 [![](https://img.shields.io/lgtm/alerts/g/davityavryan/yarn-audit-html.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davityavryan/yarn-audit-html/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/davityavryan/yarn-audit-html.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davityavryan/yarn-audit-html/context:javascript)
 [![](https://flat.badgen.net/packagephobia/install/yarn-audit-html)](https://packagephobia.now.sh/result?p=yarn-audit-html)
+[![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/white_img.png)](https://www.buymeacoffee.com/davityavryan)
 
 ## Generate a HTML report for Yarn Audit
 
