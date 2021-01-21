@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/materia/bootstrap.min.css" integrity="sha384-uKLgCN8wZ+yo4RygxUNFhjywpL/l065dVTzvLuxys7LAIMmhZoLWb/1yP6+mF925" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/materia/bootstrap.min.css" integrity="sha384-B4morbeopVCSpzeC1c4nyV0d0cqvlSAfyXVfrPJa25im5p+yEN/YmhlgQP/OyMZD" crossorigin="anonymous">
 
     <title>Yarn Audit Report</title>
     <meta name="description" content="<%= data.summary.vulnerabilities %> known vulnerabilities found.">
@@ -63,6 +63,12 @@
 
         input[type=checkbox]:checked ~ h3 ~ .collapsible-wrapper {
             max-height: 500px;
+        }
+
+        /* Disable button and badge transitions */
+        .badge,
+        .btn {
+            transition: none !important;
         }
     </style>
 </head>

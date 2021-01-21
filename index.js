@@ -35,9 +35,9 @@ const genReport = (stdin, output = 'yarn-audit.html', template, showUnique = tru
             if (modifiedData.summary.vulnerabilities > 0) {
                 console.log(`Vulnerability snapshot saved at ${output}`);
                 if (fatalExitCode) {
-                    process.exit(1);    
+                    process.exit(1);
                 }
-                process.exit(0);    
+                process.exit(0);
             }
 
             console.log('No vulnerabilities found.');
