@@ -9,7 +9,8 @@ program
     .option('-o, --output [output]', 'output file')
     .option('-t, --template [ejs file]', 'ejs template file')
     .option('--no-unique', 'show all vulnerability entries')
-    .option('--fatal-exit-code', 'exit with code 1 if vulnerabilities were found');
+    .option('--fatal-exit-code', 'exit with code 1 if vulnerabilities were found')
+    .parse();
 
 const genReport = (stdin, output = 'yarn-audit.html', template, showUnique = true, fatalExitCode = false) => {
     if (!stdin) {
@@ -49,20 +50,16 @@ const genReport = (stdin, output = 'yarn-audit.html', template, showUnique = tru
         });
 };
 
-if (process.stdin.isTTY) {
-    program.parse(process.argv);
-} else {
-    let stdin = '';
-    process.stdin.on('readable', function () {
-        const chunk = this.read();
+const options = program.opts();
 
-        if (chunk !== null) {
-            stdin += chunk;
-        }
-    });
-    process.stdin.on('end', function () {
-        program.parse(process.argv);
+let stdin = '';
+process.stdin.on('readable', function () {
+    const chunk = this.read();
 
-        genReport(stdin, program.output, program.template, program.unique, program.fatalExitCode);
-    });
-}
+    if (chunk !== null) {
+        stdin += chunk;
+    }
+});
+process.stdin.on('end', function () {
+    genReport(stdin, options.output, options.template, options.unique, options.fatalExitCode);
+});
