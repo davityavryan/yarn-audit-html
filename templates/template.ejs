@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/materia/bootstrap.min.css" integrity="sha384-uKLgCN8wZ+yo4RygxUNFhjywpL/l065dVTzvLuxys7LAIMmhZoLWb/1yP6+mF925" crossorigin="anonymous">
 
     <title>Yarn Audit Report</title>
-    <meta name="description" content="<%= summary.vulnerabilities %> known vulnerabilities found.">
+    <meta name="description" content="<%= data.summary.vulnerabilities %> known vulnerabilities found.">
 
     <style>
         html {
@@ -74,16 +74,16 @@
             <h1>Yarn Audit Report</h1>
 
             <h3>
-                <% if (showUnique) { %>
-                    <%= vulnerabilities.length %> unique from
+                <% if (data.showUnique) { %>
+                    <%= data.vulnerabilities.length %> unique from
                 <% } %>
-                <%= summary.vulnerabilities %> known vulnerabilities |
-                <%= summary.totalDependencies %> dependencies
+                <%= data.summary.vulnerabilities %> known vulnerabilities |
+                <%= data.summary.totalDependencies %> dependencies
             </h3>
         </div>
     </div>
     <div class="row">
-        <% vulnerabilities.forEach((vulnerability, vulnerabilityIndex) => { %>
+        <% data.vulnerabilities.forEach((vulnerability, vulnerabilityIndex) => { %>
             <div class="col-md-12">
                 <div class="card mb-3">
                     <div class="card-body">
@@ -144,13 +144,13 @@
                 </div>
             </div>
         <% }) %>
-        <% if (vulnerabilities.length === 0) { %>
+        <% if (data.vulnerabilities.length === 0) { %>
             <div class="col-md-12 alert alert-success">
                 Congrats!!! No vulnerabilities have been found.
             </div>
         <% } %>
 
-        <h6 class="col-md-12 mb-0 pb=3 text-right">Report generated at <%= formatDate(reportDate) %>.</h6>
+        <h6 class="col-md-12 mb-0 pb=3 text-right">Report generated at <%= formatDate(data.reportDate) %>.</h6>
     </div>
 </div>
 </body>
