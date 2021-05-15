@@ -80,9 +80,7 @@
             <h1>Yarn Audit Report</h1>
 
             <h3>
-                <% if (data.showUnique) { %>
-                    <%= data.vulnerabilities.length %> unique from
-                <% } %>
+                <%= data.vulnerabilities.length %> unique from
                 <%= data.summary.vulnerabilities %> known vulnerabilities |
                 <%= data.summary.totalDependencies %> dependencies
             </h3>
