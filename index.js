@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 const program = require('commander');
-const reporter = require('./lib/reporter');
+
+const { bailWithError, generateReport, parseAdvisory } = require('./lib/reporter');
 const pkg = require('./package.json');
 
 program
@@ -11,54 +12,55 @@ program
     .option('--fatal-exit-code', 'exit with code 1 if vulnerabilities were found')
     .parse();
 
-const genReport = (stdin, output = 'yarn-audit.html', template, fatalExitCode = false) => {
-    if (!stdin) {
-        console.log('No JSON');
-        return process.exit(1);
-    }
+console.log('Checking audit logs...')
 
-    const data = stdin.split(/\n/).filter((line) => line !== '');
-
-    let json;
-    try {
-        json = data.map(JSON.parse);
-    } catch (err) {
-        console.error('Failed to parse NPM Audit JSON!\n', err);
-        return process.exit(1);
-    }
-
-    const templateFile = template || `${__dirname}/templates/template.ejs`;
-
-    reporter(json, templateFile, output)
-        .then((modifiedData) => {
-            if (modifiedData.summary.vulnerabilities > 0) {
-                console.log(`Vulnerability snapshot saved at ${output}`);
-                if (fatalExitCode) {
-                    process.exit(1);
-                }
-                process.exit(0);
-            }
-
-            console.log('No vulnerabilities found.');
-            process.exit(0);
-        })
-        .catch((error) => {
-            console.log('An error occurred!');
-            console.error(error);
-            process.exit(1);
-        });
-};
-
+let summary = {}
 const options = program.opts();
+const vulnerabilities = new Map();
 
-let stdin = '';
+let text = '';
 process.stdin.on('readable', function () {
-    const chunk = this.read();
+    try {
+        const chunk = this.read();
 
-    if (chunk !== null) {
-        stdin += chunk;
+        if (chunk !== null) {
+            text += chunk;
+
+            const lines = text.split('\n');
+
+            if (lines.length > 1) {
+                text = lines.splice(-1, 1)[0];
+
+                lines.forEach((line) => {
+                    const tick = JSON.parse(line)
+
+                    if (tick.type === 'auditAdvisory') {
+                        const newVulnerabilities = parseAdvisory(tick);
+
+                        newVulnerabilities.forEach((newVulnerability) => {
+                            const key = newVulnerability.key;
+
+                            if (!vulnerabilities.has(key)) {
+                                vulnerabilities.set(key, newVulnerability)
+                            }
+                        })
+                    }
+
+                    if (tick.type === 'auditSummary') {
+                        summary = tick.data;
+                    }
+                });
+            }
+        }
+    } catch (error) {
+        bailWithError('Failed to parse YARN Audit JSON!', error, options.fatalExitCode)
     }
 });
+
 process.stdin.on('end', function () {
-    genReport(stdin, options.output, options.template, options.fatalExitCode);
+    try {
+        generateReport(Array.from(vulnerabilities.values()), summary, options);
+    } catch (error) {
+        bailWithError(`Failed to generate report! Please report this issue to ${pkg.bugs.url}`, error, options.fatalExitCode)
+    }
 });
