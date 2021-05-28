@@ -12,9 +12,9 @@ program
     .option('--fatal-exit-code', 'exit with code 1 if vulnerabilities were found')
     .parse();
 
-console.log('Checking audit logs...')
+console.log('Checking audit logs...');
 
-let summary = {}
+let summary = {};
 const options = program.opts();
 const vulnerabilities = new Map();
 
@@ -32,7 +32,7 @@ process.stdin.on('readable', function () {
                 text = lines.splice(-1, 1)[0];
 
                 lines.forEach((line) => {
-                    const tick = JSON.parse(line)
+                    const tick = JSON.parse(line);
 
                     if (tick.type === 'auditAdvisory') {
                         const newVulnerabilities = parseAdvisory(tick);
@@ -41,9 +41,9 @@ process.stdin.on('readable', function () {
                             const key = newVulnerability.key;
 
                             if (!vulnerabilities.has(key)) {
-                                vulnerabilities.set(key, newVulnerability)
+                                vulnerabilities.set(key, newVulnerability);
                             }
-                        })
+                        });
                     }
 
                     if (tick.type === 'auditSummary') {
@@ -53,7 +53,7 @@ process.stdin.on('readable', function () {
             }
         }
     } catch (error) {
-        bailWithError('Failed to parse YARN Audit JSON!', error, options.fatalExitCode)
+        bailWithError('Failed to parse YARN Audit JSON!', error, options.fatalExitCode);
     }
 });
 
@@ -61,6 +61,10 @@ process.stdin.on('end', function () {
     try {
         generateReport(Array.from(vulnerabilities.values()), summary, options);
     } catch (error) {
-        bailWithError(`Failed to generate report! Please report this issue to ${pkg.bugs.url}`, error, options.fatalExitCode)
+        bailWithError(
+            `Failed to generate report! Please report this issue to ${pkg.bugs.url}`,
+            error,
+            options.fatalExitCode
+        );
     }
 });
