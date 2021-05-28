@@ -4,11 +4,23 @@
     "description": "Generate a HTML report for Yarn Audit",
     "main": "index.js",
     "license": "MIT",
-    "keywords": [
-        "yarn",
-        "audit",
-        "report"
-    ],
+    "scripts": {
+        "lint": "pretty-quick --check --pattern '**/*.ts' --pattern '**/*.js'",
+        "lint:fix": "pretty-quick --verbose --pattern '**/*.ts' --pattern '**/*.js'",
+        "prelint": "yarn install --prefer-offline --frozen-lockfile",
+        "prelint:fix": "yarn install --prefer-offline --frozen-lockfile",
+        "prepare": "yarn husky install"
+    },
+    "dependencies": {
+        "commander": "^7.0.0",
+        "ejs": "~3.1.6",
+        "marked": "^2.0.6"
+    },
+    "devDependencies": {
+        "husky": "^6.0.0",
+        "prettier": "^2.3.0",
+        "pretty-quick": "^3.1.0"
+    },
     "bin": {
         "yarn-audit-html": "index.js"
     },
@@ -16,11 +28,11 @@
         "node": ">=10",
         "yarn": ">=1"
     },
-    "dependencies": {
-        "commander": "^7.0.0",
-        "ejs": "~3.1.6",
-        "marked": "^2.0.0"
-    },
+    "keywords": [
+        "yarn",
+        "audit",
+        "report"
+    ],
     "files": [
         "lib",
         "templates"
