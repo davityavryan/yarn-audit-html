@@ -223,9 +223,9 @@ locate-path@^5.0.0:
     p-locate "^4.1.0"
 
 marked@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-2.0.6.tgz#c3ab1403b9b70f26acd92590fc272eb1718e778c"
-  integrity sha512-S2mYj0FzTQa0dLddssqwRVW4EOJOVJ355Xm2Vcbm+LU7GQRGWvwbO5K87OaPSOux2AwTSgtPPaXmc8sDPrhn2A==
+  version "2.0.7"
+  resolved "https://registry.npmjs.org/marked/-/marked-2.0.7.tgz#bc5b857a09071b48ce82a1f7304913a993d4b7d1"
+  integrity sha512-BJXxkuIfJchcXOJWTT2DOL+yFWifFv2yGYOUzvXg8Qz610QKw+sHCvTMYwA+qWGhlA2uivBezChZ/pBy1tWdkQ==
 
 merge-stream@^2.0.0:
   version "2.0.0"
@@ -311,9 +311,9 @@ path-key@^3.0.0, path-key@^3.1.0:
   integrity sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==
 
 prettier@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.0.tgz#b6a5bf1284026ae640f17f7ff5658a7567fc0d18"
-  integrity sha512-kXtO4s0Lz/DW/IJ9QdWhAf7/NmPWQXkFr/r/WkR3vyI+0v8amTDxiaQSLzs8NBlytfLWX/7uQUMIW677yLKl4w==
+  version "2.3.1"
+  resolved "https://registry.npmjs.org/prettier/-/prettier-2.3.1.tgz#76903c3f8c4449bc9ac597acefa24dc5ad4cbea6"
+  integrity sha512-p+vNbgpLjif/+D+DwAZAbndtRrR0md0MwfmOVN9N+2RgyACMT+7tfaRnT+WDPkqnuVwleyuBIG2XBxKDme3hPA==
 
 pretty-quick@^3.1.0:
   version "3.1.0"
