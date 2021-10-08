@@ -105,7 +105,9 @@
                                         <li>Installed version: <%= vulnerability.version %></li>
                                     <% } %>
                                     <li>Published: <%= formatDate(vulnerability.created) %></li>
-                                    <li>Reported by: <%= vulnerability.reported_by.name %></li>
+                                    <% if (vulnerability.reported_by) { %>
+                                        <li>Reported by: <%= vulnerability.reported_by.name %></li>
+                                    <% } %>
                                     <li><%= vulnerability.cwe %></li>
                                     <% vulnerability.cves.forEach((cweItem) => { %>
                                         <li><%= cweItem %></li>
@@ -116,7 +118,9 @@
                                 <ul>
                                     <li>Vulnerable: <%= vulnerability.vulnerable_versions %></li>
                                     <li>Patched: <%= vulnerability.patched_versions %></li>
-                                    <li>CVSS: <%= vulnerability.metadata.exploitability %></li>
+                                    <% if (vulnerability.metadata) { %>
+                                        <li>CVSS: <%= vulnerability.metadata.exploitability %></li>
+                                    <% } %>
                                 </ul>
                             </div>
                         </div>
