@@ -12,12 +12,12 @@
         "prepare": "yarn husky install"
     },
     "dependencies": {
-        "commander": "^7.0.0",
+        "commander": "^8.2.0",
         "ejs": "~3.1.6",
-        "marked": "^2.0.6"
+        "marked": "^3.0.7"
     },
     "devDependencies": {
-        "husky": "^6.0.0",
+        "husky": "^7.0.2",
         "prettier": "^2.3.0",
         "pretty-quick": "^3.1.0"
     },
