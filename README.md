@@ -1,14 +1,8 @@
 # yarn-audit-html
 
-[![](https://img.shields.io/david/davityavryan/yarn-audit-html.svg?style=flat-square)](https://david-dm.org/davityavryan/yarn-audit-html/master)
-[![](https://img.shields.io/david/dev/davityavryan/yarn-audit-html.svg?style=flat-square)](https://david-dm.org/davityavryan/yarn-audit-html/master?type=dev)
-[![](https://img.shields.io/david/peer/davityavryan/yarn-audit-html.svg?style=flat-square)](https://david-dm.org/davityavryan/yarn-audit-html/master?type=peer)
 ![](https://img.shields.io/github/last-commit/davityavryan/yarn-audit-html.svg?style=flat-square)
 [![](https://img.shields.io/snyk/vulnerabilities/npm/yarn-audit-html.svg?style=flat-square)](https://snyk.io/test/npm/yarn-audit-html)
-[![](https://img.shields.io/lgtm/alerts/g/davityavryan/yarn-audit-html.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davityavryan/yarn-audit-html/alerts/)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/davityavryan/yarn-audit-html.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/davityavryan/yarn-audit-html/context:javascript)
 [![](https://flat.badgen.net/packagephobia/install/yarn-audit-html)](https://packagephobia.now.sh/result?p=yarn-audit-html)
-[![Gitter](https://badges.gitter.im/yarn-audit-html/community.svg)](https://gitter.im/yarn-audit-html/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 [![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/davityavryan)
 
