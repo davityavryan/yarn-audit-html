@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
+const { spawnSync } = require('child_process');
 
 const { bailWithError, generateReport, parseAdvisory } = require('./lib/reporter');
 const pkg = require('./package.json');
@@ -18,6 +19,10 @@ let summary = {};
 const options = program.opts();
 const vulnerabilities = new Map();
 
+const { stdout } = spawnSync('yarn', ['--version']);
+
+const yarnMajorVersion = Number.parseInt(stdout.toString());
+
 let text = '';
 process.stdin.on('readable', function () {
     try {
@@ -32,24 +37,36 @@ process.stdin.on('readable', function () {
                 text = lines.splice(-1, 1)[0];
 
                 lines.forEach((line) => {
-                    const tick = JSON.parse(line);
+                    if (yarnMajorVersion >= 2) {
+                        const auditAdvisoryData = JSON.parse(line);
 
-                    if (tick.type === 'auditAdvisory') {
-                        const newVulnerabilities = parseAdvisory(tick);
-
-                        newVulnerabilities.forEach((newVulnerability) => {
-                            const key = newVulnerability.key;
-
-                            if (!vulnerabilities.has(key)) {
-                                vulnerabilities.set(key, newVulnerability);
-                            }
+                        Object.values(auditAdvisoryData.advisories).forEach((rawAdvisory) => {
+                            advisoryToVulnerabilities(rawAdvisory);
                         });
-                    }
 
-                    if (tick.type === 'auditSummary') {
-                        summary = tick.data;
+                        summary = auditAdvisoryData.metadata;
+                    } else {
+                        const auditAdvisoryData = JSON.parse(line);
+
+                        if (auditAdvisoryData.type === 'auditAdvisory') {
+                            advisoryToVulnerabilities(auditAdvisoryData.data.advisory);
+                        } else if (auditAdvisoryData.type === 'auditSummary') {
+                            summary = auditAdvisoryData.data;
+                        }
                     }
                 });
+
+                function advisoryToVulnerabilities(advisory) {
+                    const newVulnerabilities = parseAdvisory(advisory);
+
+                    newVulnerabilities.forEach((newVulnerability) => {
+                        const { key } = newVulnerability;
+
+                        if (!vulnerabilities.has(key)) {
+                            vulnerabilities.set(key, newVulnerability);
+                        }
+                    });
+                }
             }
         }
     } catch (error) {
