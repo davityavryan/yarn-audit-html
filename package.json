@@ -43,5 +43,15 @@
     },
     "bugs": {
         "url": "https://github.com/davityavryan/yarn-audit-html/issues"
-    }
+    },
+    "funding": [
+        {
+            "type": "PayPal",
+            "url": "https://paypal.me/davityavryan?country.x=DE&locale.x=en_US"
+        },
+        {
+            "type": "Buy Me A Coffee",
+            "url": "https://www.buymeacoffee.com/davityavryan"
+        }
+    ]
 }
