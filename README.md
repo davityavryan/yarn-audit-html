@@ -19,7 +19,11 @@ yarn global add yarn-audit-html
 To generate a report, run the following:
 
 ```bash
+# Yarn V1
 yarn audit --json | yarn-audit-html
+
+# Yarn V2+
+yarn npm audit --json | yarn-audit-html
 ```
 
 By default, unique vulnerability list will be generated (Grouped by `MODULE_NAME`, `VERSION` and `CWE`) to
