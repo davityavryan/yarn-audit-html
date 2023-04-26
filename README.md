@@ -26,8 +26,9 @@ yarn audit --json | yarn-audit-html
 yarn npm audit --json | yarn-audit-html
 ```
 
-By default, unique vulnerability list will be generated (Grouped by `MODULE_NAME`, `VERSION` and `CWE`) to
-`yarn-audit.html`
+By default, unique vulnerability list will be generated (Grouped by `MODULE_NAME`, `VERSION`, `VULNERABLE_VERSIONS`,
+`ADVISORY_CREATED_DATE` and `CWE`) to `yarn-audit.html`. This way, even if same version of package has multiple
+vulnerabilities, they will be counted.
 
 If you want to specify the output file, add the `--output` option:
 
