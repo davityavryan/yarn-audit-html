@@ -1,10 +1,14 @@
 # yarn-audit-html
 
-![](https://img.shields.io/github/last-commit/davityavryan/yarn-audit-html.svg?style=flat-square)
-[![](https://img.shields.io/snyk/vulnerabilities/npm/yarn-audit-html.svg?style=flat-square)](https://snyk.io/test/npm/yarn-audit-html)
-[![](https://flat.badgen.net/packagephobia/install/yarn-audit-html)](https://packagephobia.now.sh/result?p=yarn-audit-html)
+[![](https://img.shields.io/librariesio/release/npm/yarn-audit-html?logo=npm)](https://www.npmjs.com/package/yarn-audit-html)
+[![](https://img.shields.io/npm/dw/yarn-audit-html?logo=npm)](https://www.npmjs.com/package/yarn-audit-html)
+[![](https://img.shields.io/snyk/vulnerabilities/npm/yarn-audit-html.svg?style=flat-square&logo=snyk)](https://snyk.io/test/npm/yarn-audit-html)
+![](https://img.shields.io/github/last-commit/davityavryan/yarn-audit-html.svg?style=flat-square&logo=github)
+[![](https://img.shields.io/node/v/yarn-audit-html?logo=node.js)](https://github.com/nodejs/release#release-schedule)
+[![](https://flat.badgen.net/packagephobia/install/yarn-audit-html?logo=packagephobia)](https://packagephobia.now.sh/result?p=yarn-audit-html)
 
-[![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/davityavryan)
+[![PayPal.me](https://img.shields.io/badge/PayPal-donate-blue?style=for-the-badge&logo=paypal)](https://www.buymeacoffee.com/davityavryan)
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-donate-yellow?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/davityavryan)
 
 ## Generate a HTML report for Yarn Audit
 
