@@ -51,6 +51,4 @@ yarn audit --json | yarn-audit-html --fatal-exit-code
 
 Inspired by [npm-audit-html](https://github.com/Filiosoft/npm-audit-html) package.
 
-## License
-
-[MIT](LICENSE.md)
+See changelog [here](https://github.com/davityavryan/yarn-audit-html/releases).
