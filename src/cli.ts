@@ -1,30 +1,39 @@
-#!/usr/bin/env node
+import { spawnSync } from 'node:child_process';
 
-const program = require('commander');
-const { spawnSync } = require('child_process');
+import { program } from 'commander';
 
-const { bailWithError, generateReport, parseAdvisory } = require('./lib/reporter');
-const pkg = require('./package.json');
+import { bailWithError, generateReport, parseAdvisory } from './index.js';
+import {
+    AuditMetadata,
+    RawAuditAdvisor,
+    AuditAdvisoryData,
+    Options,
+    AuditMetadataData,
+    AuditAdvisor,
+} from './types.js';
 
 program
-    .version(pkg.version)
-    .option('-o, --output [output]', 'output file')
-    .option('-t, --template [ejs file]', 'ejs template file')
-    .option('--fatal-exit-code', 'exit with code 1 if vulnerabilities were found')
+    .option('-o, --output [output]', 'output file', 'yarn-audit.html')
+    .option(
+        '-t, --template [ejs file]',
+        'ejs template file',
+        new URL('../templates/template.ejs', import.meta.url).pathname
+    )
+    .option('--fatal-exit-code', 'exit with code 1 if vulnerabilities were found', false)
     .parse();
 
-console.log('Checking audit logs...');
+console.info('Checking audit logs...');
 
-let summary = {};
-const options = program.opts();
-const vulnerabilities = new Map();
+let summary: AuditMetadata;
+const options = program.opts<Options>();
+const vulnerabilities = new Map<string, AuditAdvisor>();
 
 const { stdout } = spawnSync('yarn', ['--version']);
 
 const yarnMajorVersion = Number.parseInt(stdout.toString());
 
 let text = '';
-process.stdin.on('readable', function () {
+process.stdin.on('readable', function (this: typeof process.stdin) {
     try {
         const chunk = this.read();
 
@@ -38,7 +47,10 @@ process.stdin.on('readable', function () {
 
                 lines.forEach((line) => {
                     if (yarnMajorVersion >= 2) {
-                        const auditAdvisoryData = JSON.parse(line);
+                        const auditAdvisoryData = JSON.parse(line) as {
+                            advisories: Record<string, RawAuditAdvisor>;
+                            metadata: AuditMetadata;
+                        };
 
                         Object.values(auditAdvisoryData.advisories).forEach((rawAdvisory) => {
                             advisoryToVulnerabilities(rawAdvisory);
@@ -46,7 +58,7 @@ process.stdin.on('readable', function () {
 
                         summary = auditAdvisoryData.metadata;
                     } else {
-                        const auditAdvisoryData = JSON.parse(line);
+                        const auditAdvisoryData = JSON.parse(line) as AuditAdvisoryData | AuditMetadataData;
 
                         if (auditAdvisoryData.type === 'auditAdvisory') {
                             advisoryToVulnerabilities(auditAdvisoryData.data.advisory);
@@ -56,7 +68,7 @@ process.stdin.on('readable', function () {
                     }
                 });
 
-                function advisoryToVulnerabilities(advisory) {
+                function advisoryToVulnerabilities(advisory: RawAuditAdvisor) {
                     const newVulnerabilities = parseAdvisory(advisory);
 
                     newVulnerabilities.forEach((newVulnerability) => {
@@ -70,17 +82,17 @@ process.stdin.on('readable', function () {
             }
         }
     } catch (error) {
-        bailWithError('Failed to parse YARN Audit JSON!', error, options.fatalExitCode);
+        bailWithError('Failed to parse YARN Audit JSON!', error as Error, options.fatalExitCode);
     }
 });
 
-process.stdin.on('end', function () {
+process.stdin.on('end', async function () {
     try {
-        generateReport(Array.from(vulnerabilities.values()), summary, options);
+        await generateReport(Array.from(vulnerabilities.values()), summary, options);
     } catch (error) {
         bailWithError(
-            `Failed to generate report! Please report this issue to ${pkg.bugs.url}`,
-            error,
+            'Failed to generate report! Please report this issue to https://github.com/davityavryan/yarn-audit-html/issues',
+            error as Error,
             options.fatalExitCode
         );
     }

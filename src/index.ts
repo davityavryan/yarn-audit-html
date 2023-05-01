@@ -1,32 +1,24 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
 
-const ejs = require('ejs');
-const { marked } = require('marked');
+import ejs from 'ejs';
+import { marked } from 'marked';
 
-const bootstrapClassSeverityMap = {
+import { AuditAdvisor, AuditMetadata, Options, RawAuditAdvisor, Severity, Vulnerabilities } from './types.js';
+
+const bootstrapClassSeverityMap: Record<Severity, string> = {
     critical: 'danger',
     high: 'warning',
     moderate: 'secondary',
     low: 'primary',
+    info: 'info',
 };
 const severitySortPriority = Object.keys(bootstrapClassSeverityMap);
 
-/**
- *
- * @param {object} auditAdvisory -
- * @param {object} auditAdvisory.data -
- * @param {string} auditAdvisory.data.cwe -
- * @param {string} auditAdvisory.data.module_name -
- * @param {object} auditAdvisory.data.advisory -
- * @param {object[]} auditAdvisory.findings -
- * @returns {object[]}
- */
-const parseAdvisory = (advisory) => {
-    const vulnerabilities = {};
+export function parseAdvisory(advisory: RawAuditAdvisor) {
+    const vulnerabilities: Vulnerabilities = {};
 
     advisory.findings.forEach((finding) => {
-        const version = finding.version;
+        const { version } = finding;
         const key = `${advisory.module_name}@${version}-${advisory.vulnerable_versions}-${advisory.created}.${advisory.cwe}`;
 
         if (!(key in vulnerabilities)) {
@@ -46,21 +38,14 @@ const parseAdvisory = (advisory) => {
     });
 
     return Object.values(vulnerabilities);
-};
+}
 
-const generateReport = (vulnerabilities, summary, options) => {
-    options = {
-        output: 'yarn-audit.html',
-        template: path.resolve(__dirname, '..', 'templates', 'template.ejs'),
-        fatalExitCode: false,
-        ...options,
-    };
-
+export async function generateReport(vulnerabilities: AuditAdvisor[], summary: AuditMetadata, options: Options) {
     vulnerabilities.sort(
         (left, right) => severitySortPriority.indexOf(left.severity) - severitySortPriority.indexOf(right.severity)
     );
 
-    const report = renderReport(
+    const report = await renderReport(
         {
             reportDate: new Date(),
             vulnerabilities,
@@ -72,48 +57,42 @@ const generateReport = (vulnerabilities, summary, options) => {
         options.template
     );
 
-    writeReport(report, options.output);
+    await writeReport(options.output, report);
 
     if (vulnerabilities.length > 0) {
         console.info(`Found ${vulnerabilities.length} vulnerabilities. Report is saved in "${options.output}"`);
 
         if (options.fatalExitCode) {
-            process.exit(1);
+            return process.exit(1);
         }
     } else {
         console.info('Congrats!!! No vulnerabilities found.');
     }
 
-    process.exit(0);
-};
+    return process.exit(0);
+}
 
-const renderReport = (data, template) => {
-    const htmlTemplate = fs.readFileSync(template, 'utf8');
+export async function renderReport(data: ejs.Data, template: string) {
+    const htmlTemplate = await fs.promises.readFile(template, 'utf8');
 
     return ejs.render(htmlTemplate, {
         data,
-        formatDate: (dateStr) => new Date(dateStr).toLocaleString(),
-        severityClass: (severity) => bootstrapClassSeverityMap[severity],
+        formatDate: (dateStr: string) => new Date(dateStr).toLocaleString(),
+        severityClass: (severity: Severity) => bootstrapClassSeverityMap[severity],
         markdown: marked,
     });
-};
+}
 
-const writeReport = (report, output) => {
-    fs.writeFileSync(output, report, { encoding: 'utf8' });
-};
+export async function writeReport(outputPath: string, report: string) {
+    await fs.promises.writeFile(outputPath, report, { encoding: 'utf8' });
+}
 
-const bailWithError = (message, error, isFatalExitCode) => {
+export function bailWithError(message: string, error: Error, isFatalExitCode: boolean) {
     console.error(`${message}\n`, error);
 
     if (isFatalExitCode) {
-        process.exit(1);
+        return process.exit(1);
     }
 
-    process.exit(0);
-};
-
-module.exports.bailWithError = bailWithError;
-module.exports.generateReport = generateReport;
-module.exports.parseAdvisory = parseAdvisory;
-module.exports.renderReport = renderReport;
-module.exports.writeReport = writeReport;
+    return process.exit(0);
+}

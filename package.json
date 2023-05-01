@@ -1,12 +1,15 @@
 {
     "name": "yarn-audit-html",
-    "version": "6.2.0",
+    "version": "7.0.0",
     "description": "Generate a HTML report for Yarn Audit",
-    "main": "index.js",
+    "type": "module",
     "license": "MIT",
     "scripts": {
+        "build": "tsc -b",
+        "clean": "rm -rf ./lib/*",
         "lint": "pretty-quick --check --pattern '**/*.ts' --pattern '**/*.js'",
         "lint:fix": "pretty-quick --verbose --pattern '**/*.ts' --pattern '**/*.js'",
+        "prebuild": "yarn install --prefer-offline --frozen-lockfile && yarn clean",
         "prelint": "yarn install --prefer-offline --frozen-lockfile",
         "prelint:fix": "yarn install --prefer-offline --frozen-lockfile",
         "prepare": "yarn husky install"
@@ -17,17 +20,29 @@
         "marked": "^4.3.0"
     },
     "devDependencies": {
+        "@types/ejs": "^3.1.2",
+        "@types/marked": "^4.3.0",
+        "@types/node": "^18.16.3",
         "husky": "^8.0.3",
-        "prettier": "^2.8.7",
-        "pretty-quick": "^3.1.3"
+        "prettier": "^2.8.8",
+        "pretty-quick": "^3.1.3",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.0.4"
+    },
+    "optionalDependencies": {
+        "@types/ejs": "^3.1.2",
+        "@types/marked": "^4.3.0",
+        "@types/node": "^18.16.3"
     },
     "bin": {
-        "yarn-audit-html": "index.js"
+        "yarn-audit-html": "./lib/cli.js"
     },
     "engines": {
         "node": ">=16",
         "yarn": ">=1"
     },
+    "module": "./lib/index.js",
+    "types": "./lib/index.d.ts",
     "keywords": [
         "yarn",
         "audit",
@@ -35,6 +50,8 @@
     ],
     "files": [
         "lib",
+        "!lib/cli.d.ts",
+        "!lib/types.js",
         "templates"
     ],
     "repository": {
