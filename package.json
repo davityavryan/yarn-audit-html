@@ -2,16 +2,15 @@
     "name": "yarn-audit-html",
     "version": "7.0.0",
     "description": "Generate a HTML report for Yarn Audit",
-    "type": "module",
     "license": "MIT",
     "scripts": {
-        "build": "tsc -b",
+        "build": "tsup",
         "clean": "rm -rf ./lib/*",
         "lint": "pretty-quick --check --pattern '**/*.ts' --pattern '**/*.js'",
         "lint:fix": "pretty-quick --verbose --pattern '**/*.ts' --pattern '**/*.js'",
         "test": "mocha --inline-diffs",
         "test:coverage": "c8 mocha --inline-diffs",
-        "prebuild": "yarn install --prefer-offline --frozen-lockfile && yarn clean",
+        "prebuild": "yarn install --prefer-offline --frozen-lockfile",
         "prelint": "yarn install --prefer-offline --frozen-lockfile",
         "prelint:fix": "yarn install --prefer-offline --frozen-lockfile",
         "pretest": "yarn install --prefer-offline --frozen-lockfile",
@@ -40,6 +39,7 @@
         "sinon": "^15.0.4",
         "sinon-chai": "^3.7.0",
         "ts-node": "^10.9.1",
+        "tsup": "^6.7.0",
         "typescript": "^5.0.4"
     },
     "optionalDependencies": {
@@ -48,14 +48,22 @@
         "@types/node": "^18.16.3"
     },
     "bin": {
+        "yarn-audit-html-esm": "./lib/cli.mjs",
         "yarn-audit-html": "./lib/cli.js"
     },
     "engines": {
         "node": ">=16",
         "yarn": ">=1"
     },
-    "module": "./lib/index.js",
+    "main": "./lib/index.js",
+    "module": "./lib/index.mjs",
     "types": "./lib/index.d.ts",
+    "exports": {
+        ".": {
+            "default": "./lib/index.mjs",
+            "require": "./lib/index.js"
+        }
+    },
     "keywords": [
         "yarn",
         "audit",
@@ -64,7 +72,6 @@
     "files": [
         "lib",
         "!lib/cli.d.ts",
-        "!lib/types.js",
         "templates"
     ],
     "repository": {
