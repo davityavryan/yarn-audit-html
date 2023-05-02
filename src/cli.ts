@@ -1,4 +1,4 @@
-import { spawnSync } from 'node:child_process';
+import { spawnSync } from 'child_process';
 
 import { program } from 'commander';
 

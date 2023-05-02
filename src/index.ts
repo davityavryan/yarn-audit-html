@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+import fs from 'fs';
 
 import ejs from 'ejs';
 import { marked } from 'marked';
