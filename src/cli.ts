@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-
-import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 import { program } from 'commander';
@@ -15,13 +12,13 @@ import {
     AuditAdvisor,
 } from './types.js';
 
-const templateCJSPath = path.resolve(__dirname, '../../templates/template.ejs');
-// @ts-ignore: TS1343 - ignore import.meta error for CommonJS
-const templateESMPath = new URL('../templates/template.ejs', import.meta.url).pathname;
-
 program
     .option('-o, --output [output]', 'output file', 'yarn-audit.html')
-    .option('-t, --template [ejs file]', 'ejs template file', global.__dirname ? templateCJSPath : templateESMPath)
+    .option(
+        '-t, --template [ejs file]',
+        'ejs template file',
+        new URL('../templates/template.ejs', import.meta.url).pathname
+    )
     .option('--fatal-exit-code', 'exit with code 1 if vulnerabilities were found', false)
     .parse();
 
