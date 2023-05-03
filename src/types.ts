@@ -59,5 +59,6 @@ export type AuditMetadataData = {
 export type Options = {
     output: string;
     template: string;
+    theme: string;
     fatalExitCode: boolean;
 };

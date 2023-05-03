@@ -2,7 +2,7 @@
 
 import { spawnSync } from 'child_process';
 
-import { program } from 'commander';
+import { program, Option } from 'commander';
 
 import { bailWithError, generateReport, parseAdvisory } from './index.js';
 import {
@@ -15,11 +15,42 @@ import {
 } from './types.js';
 
 program
-    .option('-o, --output [output]', 'output file', 'yarn-audit.html')
+    .option('-o, --output [output path]', 'output file', 'yarn-audit.html')
     .option(
-        '-t, --template [ejs file]',
-        'ejs template file',
+        '-t, --template [ejs path]',
+        'ejs template path',
         new URL('../templates/template.ejs', import.meta.url).pathname
+    )
+    .addOption(
+        new Option('--theme [theme name]', 'Bootswatch theme. see https://bootswatch.com/#:~:text=Cerulean')
+            .default('materia')
+            .choices([
+                'cerulean',
+                'cosmo',
+                'cyborg',
+                'darkly',
+                'flatly',
+                'journal',
+                'litera',
+                'lumen',
+                'lux',
+                'materia',
+                'minty',
+                'morph',
+                'pulse',
+                'quartz',
+                'sandstone',
+                'simplex',
+                'sketchy',
+                'slate',
+                'solar',
+                'spacelab',
+                'superhero',
+                'united',
+                'vapor',
+                'yeti',
+                'zephyr',
+            ])
     )
     .option('--fatal-exit-code', 'exit with code 1 if vulnerabilities were found', false)
     .parse();

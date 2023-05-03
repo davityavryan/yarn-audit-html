@@ -49,6 +49,7 @@ export async function generateReport(vulnerabilities: AuditAdvisor[], summary: A
         {
             reportDate: new Date(),
             vulnerabilities,
+            theme: options.theme,
             summary: {
                 vulnerabilities: Object.values(summary.vulnerabilities).reduce((sum, value) => sum + value, 0),
                 totalDependencies: summary.totalDependencies,

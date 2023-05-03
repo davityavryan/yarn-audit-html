@@ -6,8 +6,7 @@
 
         <link
             rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/materia/bootstrap.min.css"
-            integrity="sha384-B4morbeopVCSpzeC1c4nyV0d0cqvlSAfyXVfrPJa25im5p+yEN/YmhlgQP/OyMZD"
+            href="https://cdn.jsdelivr.net/npm/bootswatch@5.2/dist/<%= data.theme %>/bootstrap.min.css"
             crossorigin="anonymous"
         />
 
@@ -15,15 +14,12 @@
         <meta name="description" content="<%= data.summary.vulnerabilities %> known vulnerabilities found." />
 
         <style>
-            html {
-                font-size: 20px;
-            }
-
             label {
                 position: relative;
 
                 display: block;
                 padding-left: 30px;
+                margin-left: -10px;
 
                 cursor: pointer;
             }
@@ -36,7 +32,7 @@
                 width: 0;
                 height: 0;
 
-                border-left: 8px solid black;
+                border-left: 8px solid currentColor;
                 border-top: 8px solid transparent;
                 border-bottom: 8px solid transparent;
                 margin-top: -8px;
@@ -44,11 +40,15 @@
                 content: '';
             }
 
-            input[type='checkbox'] {
-                visibility: hidden;
+            .card-text p:last-child {
+                margin-bottom: 0;
             }
 
-            input[type='checkbox']:checked ~ h3 label:before {
+            input[type='checkbox'] {
+                display: none;
+            }
+
+            input[type='checkbox']:checked + h3 label:before {
                 border-left: 8px solid transparent;
                 border-top: 8px solid black;
                 border-right: 8px solid transparent;
@@ -59,31 +59,78 @@
 
             .collapsible-wrapper {
                 max-height: 0;
+                padding: 0;
                 padding-left: 30px;
                 overflow-y: auto;
 
                 transition: max-height 0.15s ease;
             }
 
-            input[type='checkbox']:checked ~ h3 ~ .collapsible-wrapper {
+            input[type='checkbox']:checked + h3 + .collapsible-wrapper {
                 max-height: 500px;
+                padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x);
             }
 
-            /* Disable button and badge transitions */
-            .badge,
-            .btn {
-                transition: none !important;
+            h1,
+            .h1 {
+                font-size: calc(2.03125rem * 20 / 16);
+            }
+            h2,
+            .h2 {
+                font-size: calc(1.625rem * 20 / 16);
+            }
+            h3,
+            .h3 {
+                font-size: calc(1.421875rem * 20 / 16);
+            }
+            h4,
+            .h4 {
+                font-size: calc(1.21875rem * 20 / 16);
+            }
+            h5,
+            .h5 {
+                font-size: calc(1.015625rem * 20 / 16);
+            }
+            h6,
+            .h6 {
+                font-size: calc(0.8125rem * 20 / 16);
+            }
+            @media (min-width: 1200px) {
+                h1,
+                .h1 {
+                    font-size: calc(2.03125rem * 20 / 16);
+                }
+                h2,
+                .h2 {
+                    font-size: calc(1.625rem * 20 / 16);
+                }
+                h3,
+                .h3 {
+                    font-size: calc(1.421875rem * 20 / 16);
+                }
+                h4,
+                .h4 {
+                    font-size: calc(1.21875rem * 20 / 16);
+                }
+                h5,
+                .h5 {
+                    font-size: calc(1.015625rem * 20 / 16);
+                }
+                h6,
+                .h6 {
+                    font-size: calc(0.8125rem * 20 / 16);
+                }
             }
         </style>
     </head>
 
     <body>
         <div class="container">
-            <div class="row mb-3">
+            <div class="row my-3">
                 <div class="col-md text-center">
-                    <h1>Yarn Audit Report</h1>
+                    <h1 class="h2">Yarn Audit Report</h1>
 
-                    <h3>
+                    <h3 class="h5">
                         <%= data.vulnerabilities.length %> unique from <%= data.summary.vulnerabilities %> known
                         vulnerabilities | <%= data.summary.totalDependencies %> dependencies
                     </h3>
@@ -93,9 +140,9 @@
                 <% data.vulnerabilities.forEach((vulnerability, vulnerabilityIndex)=> { %>
                 <div class="col-md-12">
                     <div class="card mb-3">
-                        <div class="card-body">
-                            <h1 class="card-title">
-                                <span class="badge badge-<%= severityClass(vulnerability.severity) %>">
+                        <div class="card-body p-4">
+                            <h1 class="card-title h3 d-flex align-items-center gap-2">
+                                <span class="badge text-capitalize bg-<%= severityClass(vulnerability.severity) %>">
                                     <%= vulnerability.severity %>
                                 </span>
                                 <%= vulnerability.title %>
@@ -118,9 +165,9 @@
                                         <li>Published: <%= formatDate(vulnerability.created) %></li>
                                         <% if (vulnerability.reported_by) { %>
                                         <li>Reported by: <%= vulnerability.reported_by.name %></li>
-                                        <% } %>
+                                        <% } %> <% if (vulnerability.cwe != '') { %>
                                         <li><%= vulnerability.cwe %></li>
-                                        <% vulnerability.cves.forEach((cweItem)=> { %>
+                                        <% } %> <% vulnerability.cves.forEach((cweItem)=> { %>
                                         <li><%= cweItem %></li>
                                         <% }) %>
                                     </ul>
@@ -136,14 +183,21 @@
                                 </div>
                             </div>
                             <h3>Overview</h3>
-                            <div class="card-text"><%- markdown(vulnerability.overview) %></div>
+                            <div class="card-text alert alert-secondary overflow-auto mb-3" style="max-height: 205px">
+                                <%- markdown(vulnerability.overview) %>
+                            </div>
 
                             <% if (vulnerability.recommendation) { %>
                             <h3>Remediation</h3>
-                            <div class="card-text"><%- markdown(vulnerability.recommendation) %></div>
+                            <div class="card-text mb-3"><%- markdown(vulnerability.recommendation) %></div>
                             <% } %> <% if (vulnerability.references) { %>
-                            <h3>References</h3>
-                            <div class="card-text"><%- markdown(vulnerability.references) %></div>
+                            <input id="vulnerability-references-<%= vulnerabilityIndex %>" type="checkbox" />
+                            <h3>
+                                <label for="vulnerability-references-<%= vulnerabilityIndex %>">References </label>
+                            </h3>
+                            <div class="card-text alert alert-secondary collapsible-wrapper">
+                                <%- markdown(vulnerability.references) %>
+                            </div>
                             <% } %> <% if (vulnerability.paths.length) { %>
                             <input id="vulnerability-reasons-<%= vulnerabilityIndex %>" type="checkbox" />
                             <h3>
@@ -151,23 +205,25 @@
                                     >Reasons this module exists</label
                                 >
                             </h3>
-                            <div class="mb-3 collapsible-wrapper">
+                            <div class="card-text alert alert-secondary collapsible-wrapper">
                                 <% vulnerability.paths.forEach((path)=> { %>
                                 <div class="card-text">
-                                    <code><%= path %></code>
+                                    <code class="text-body"><%= path %></code>
                                 </div>
                                 <% }) %>
                             </div>
                             <% } %>
 
-                            <a
-                                href="<%= vulnerability.url %>"
-                                class="btn btn-lg btn-primary"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                More about this vulnerability
-                            </a>
+                            <div class="d-flex justify-content-end">
+                                <a
+                                    href="<%= vulnerability.url %>"
+                                    class="btn btn-md btn-primary"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    More about this vulnerability
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -175,7 +231,7 @@
                 <div class="col-md-12 alert alert-success">Congrats!!! No vulnerabilities have been found.</div>
                 <% } %>
 
-                <h6 class="col-md-12 mb-0 pb=3 text-right">Report generated at <%= formatDate(data.reportDate) %></h6>
+                <h6 class="col-md-12 mb-3 pb=3 text-right">Report generated at <%= formatDate(data.reportDate) %></h6>
             </div>
         </div>
     </body>
