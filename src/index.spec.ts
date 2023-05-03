@@ -127,6 +127,7 @@ describe('reporter', () => {
                 {
                     output: outputPath,
                     template: templatePath,
+                    theme: 'materia',
                     fatalExitCode: true,
                 }
             );
@@ -152,6 +153,7 @@ describe('reporter', () => {
                 {
                     output: 'yarn-audit.html',
                     template: 'template.ejs',
+                    theme: 'materia',
                     fatalExitCode: true,
                 }
             );
