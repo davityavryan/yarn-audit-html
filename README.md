@@ -46,6 +46,14 @@ You can also fully customize the generated report by providing `--template` opti
 yarn audit --json | yarn-audit-html --template ./my-awesome-template.ejs
 ```
 
+There is also a possibility to change default theme(materia) to any of available in
+[Bootswatch](https://bootswatch.com/#:~:text=Cerulean) with `--theme` option followed by theme name: p.s. In future
+major release default template will change to dark theme.
+
+```bash
+yarn audit --json | yarn-audit-html --theme darkly
+```
+
 If you'd like the generator to exit with non-zero exit code when vulnerabilities are found, you can add the
 `--fatal-exit-code` option:
 
