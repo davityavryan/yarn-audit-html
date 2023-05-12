@@ -21,7 +21,7 @@
     "dependencies": {
         "commander": "^10.0.0",
         "ejs": "~3.1.9",
-        "marked": "^4.3.0"
+        "marked": "^5.0.2"
     },
     "devDependencies": {
         "@types/chai": "^4.3.5",
