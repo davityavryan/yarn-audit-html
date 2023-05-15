@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { fstat } from 'fs';
 import { spawnSync } from 'child_process';
 
 import { program, Option } from 'commander';
@@ -64,6 +65,14 @@ const vulnerabilities = new Map<string, AuditAdvisor>();
 const { stdout } = spawnSync('yarn', ['--version']);
 
 const yarnMajorVersion = Number.parseInt(stdout.toString());
+
+// Determine if cli is piped *in*
+fstat(0, (err, stats) => {
+    if (!err && !stats.isFIFO()) {
+        program.outputHelp();
+        process.exit(1);
+    }
+});
 
 let text = '';
 process.stdin.on('readable', function (this: typeof process.stdin) {
