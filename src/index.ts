@@ -75,10 +75,13 @@ export async function generateReport(vulnerabilities: AuditAdvisor[], summary: A
 
 export async function renderReport(data: ejs.Data, template: string) {
     const htmlTemplate = await fs.promises.readFile(template, 'utf8');
+    const locale = Intl.DateTimeFormat().resolvedOptions().locale;
 
     return ejs.render(htmlTemplate, {
         data,
-        formatDate: (dateStr: string) => new Date(dateStr).toLocaleString(),
+        formatNumber: (number: number) => new Intl.NumberFormat(locale).format(number),
+        formatDate: (dateStr: string) =>
+            new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeStyle: 'long' }).format(new Date(dateStr)),
         severityClass: (severity: Severity) => bootstrapClassSeverityMap[severity],
         markdown: marked,
     });

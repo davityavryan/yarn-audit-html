@@ -30,7 +30,7 @@ describe('reporter', () => {
             .expects('readFile')
             .returns(
                 Promise.resolve(
-                    '<%= data.vulnerabilities.length %> unique from <%= data.summary.vulnerabilities %> known vulnerabilities | <%= data.summary.totalDependencies %> dependencies. <%= formatDate(data.date) %> - <%= severityClass(data.severity) %>'
+                    '<%= data.vulnerabilities.length %> unique from <%= formatNumber(data.summary.vulnerabilities) %> known vulnerabilities | <%= data.summary.totalDependencies %> dependencies. <%= formatDate(new Date(2021, 3, 16)) %> - <%= severityClass(data.severity) %>'
                 )
             );
     });
@@ -86,7 +86,7 @@ describe('reporter', () => {
             );
 
             result.should.be.equal(
-                '2 unique from 123 known vulnerabilities | 234 dependencies. 1/23/2023, 7:54:20 PM - warning'
+                '2 unique from 123 known vulnerabilities | 234 dependencies. April 16, 2021 at 12:00:00 AM GMT+2 - warning'
             );
 
             fsReadFileMock.should.be.calledOnce;

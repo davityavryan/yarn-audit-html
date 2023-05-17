@@ -11,7 +11,7 @@
         />
 
         <title>Yarn Audit Report</title>
-        <meta name="description" content="<%= data.summary.vulnerabilities %> known vulnerabilities found." />
+        <meta name="description" content="<%= data.summary.vulnerabilities %> overall vulnerabilities found." />
 
         <style>
             label {
@@ -146,8 +146,9 @@
                     <h1 class="h2">Yarn Audit Report</h1>
 
                     <h3 class="h5">
-                        <%= data.vulnerabilities.length %> unique from <%= data.summary.vulnerabilities %> known
-                        vulnerabilities | <%= data.summary.totalDependencies %> dependencies
+                        <%= formatNumber(data.vulnerabilities.length) %> unique from <%=
+                        formatNumber(data.summary.vulnerabilities) %> overall vulnerabilities | <%=
+                        formatNumber(data.summary.totalDependencies) %> dependencies
                     </h3>
                 </div>
             </div>
@@ -170,6 +171,7 @@
                                             <a
                                                 href="https://npmjs.com/package/<%= vulnerability.module_name %>"
                                                 target="_blank"
+                                                rel="noopener noreferrer"
                                             >
                                                 <%= vulnerability.module_name %>
                                             </a>
@@ -177,23 +179,22 @@
                                         <% if (vulnerability.version) { %>
                                         <li>Installed version: <%= vulnerability.version %></li>
                                         <% } %>
-                                        <li>Published: <%= formatDate(vulnerability.created) %></li>
-                                        <% if (vulnerability.reported_by) { %>
-                                        <li>Reported by: <%= vulnerability.reported_by.name %></li>
-                                        <% } %> <% if (vulnerability.cwe != '') { %>
-                                        <li><%= vulnerability.cwe %></li>
-                                        <% } %> <% vulnerability.cves.forEach((cweItem)=> { %>
-                                        <li><%= cweItem %></li>
-                                        <% }) %>
+                                        <li>Vulnerable: <%= vulnerability.vulnerable_versions %></li>
+                                        <li>Patched: <%= vulnerability.patched_versions %></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-6">
                                     <ul>
-                                        <li>Vulnerable: <%= vulnerability.vulnerable_versions %></li>
-                                        <li>Patched: <%= vulnerability.patched_versions %></li>
-                                        <% if (vulnerability.metadata) { %>
+                                        <li>Published: <%= formatDate(vulnerability.created) %></li>
+                                        <% if (vulnerability.reported_by) { %>
+                                        <li>Reported by: <%= vulnerability.reported_by.name %></li>
+                                        <% } %> <% if (vulnerability.metadata) { %>
                                         <li>CVSS: <%= vulnerability.metadata.exploitability %></li>
-                                        <% } %>
+                                        <% } if (vulnerability.cwe != '') { %>
+                                        <li><%= vulnerability.cwe %></li>
+                                        <% } %> <% vulnerability.cves.forEach((cweItem)=> { %>
+                                        <li><%= cweItem %></li>
+                                        <% }) %>
                                     </ul>
                                 </div>
                             </div>
@@ -208,7 +209,7 @@
                             <% } %> <% if (vulnerability.references) { %>
                             <input id="vulnerability-references-<%= vulnerabilityIndex %>" type="checkbox" />
                             <h3>
-                                <label for="vulnerability-references-<%= vulnerabilityIndex %>">References </label>
+                                <label for="vulnerability-references-<%= vulnerabilityIndex %>">References</label>
                             </h3>
                             <div class="card-text alert alert-secondary collapsible-wrapper">
                                 <%- markdown(vulnerability.references) %>
