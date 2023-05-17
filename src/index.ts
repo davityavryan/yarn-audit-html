@@ -83,7 +83,7 @@ export async function renderReport(data: ejs.Data, template: string) {
         formatDate: (dateStr: string) =>
             new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeStyle: 'long' }).format(new Date(dateStr)),
         severityClass: (severity: Severity) => bootstrapClassSeverityMap[severity],
-        markdown: marked,
+        markdown: (code: string) => marked(code, { mangle: false, headerIds: false }),
     });
 }
 
