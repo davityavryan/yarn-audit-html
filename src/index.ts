@@ -8,9 +8,9 @@ import { AuditAdvisor, AuditMetadata, Options, RawAuditAdvisor, Severity, Vulner
 const bootstrapClassSeverityMap: Record<Severity, string> = {
     critical: 'danger',
     high: 'warning',
-    moderate: 'secondary',
+    moderate: 'info',
     low: 'primary',
-    info: 'info',
+    info: 'secondary',
 };
 const severitySortPriority = Object.keys(bootstrapClassSeverityMap);
 
