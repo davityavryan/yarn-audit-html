@@ -1,6 +1,6 @@
 {
     "include": ["src/*"],
-    "exclude": ["node_modules", "lib", "coverage", "src/**/*.spec.ts"],
+    "exclude": ["node_modules", "lib", "coverage", "src/**/*.test.ts"],
     "compilerOptions": {
         "outDir": "lib",
         "target": "ESNext",
