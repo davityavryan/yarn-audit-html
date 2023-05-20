@@ -1,4 +1,5 @@
-import fs from 'fs';
+import { readFile, writeFile } from 'node:fs/promises';
+import process from 'node:process';
 
 import ejs from 'ejs';
 import { marked } from 'marked';
@@ -74,7 +75,7 @@ export async function generateReport(vulnerabilities: AuditAdvisor[], summary: A
 }
 
 export async function renderReport(data: ejs.Data, template: string) {
-    const htmlTemplate = await fs.promises.readFile(template, 'utf8');
+    const htmlTemplate = await readFile(template, 'utf8');
     const locale = Intl.DateTimeFormat().resolvedOptions().locale;
 
     return ejs.render(htmlTemplate, {
@@ -88,7 +89,7 @@ export async function renderReport(data: ejs.Data, template: string) {
 }
 
 export async function writeReport(outputPath: string, report: string) {
-    await fs.promises.writeFile(outputPath, report, { encoding: 'utf8' });
+    await writeFile(outputPath, report, { encoding: 'utf8' });
 }
 
 export function bailWithError(message: string, error: Error, isFatalExitCode: boolean) {
