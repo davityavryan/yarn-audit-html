@@ -6,6 +6,7 @@
 ![](https://img.shields.io/github/last-commit/davityavryan/yarn-audit-html.svg?style=flat-square&logo=github)
 [![](https://img.shields.io/node/v/yarn-audit-html?logo=node.js)](https://github.com/nodejs/release#release-schedule)
 [![](https://flat.badgen.net/packagephobia/install/yarn-audit-html?logo=packagephobia)](https://packagephobia.now.sh/result?p=yarn-audit-html)
+[![](https://codecov.io/gh/davityavryan/yarn-audit-html/branch/master/graph/badge.svg?token=8HXXAIN7OY)](https://codecov.io/gh/davityavryan/yarn-audit-html)
 
 [![PayPal.me](https://img.shields.io/badge/PayPal-donate-blue?style=for-the-badge&logo=paypal)](https://www.buymeacoffee.com/davityavryan)
 [![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-donate-yellow?style=for-the-badge&logo=buymeacoffee)](https://www.buymeacoffee.com/davityavryan)
@@ -15,6 +16,8 @@
 ## Install
 
 ```bash
+yarn add -D yarn-audit-html
+# or globally
 yarn global add yarn-audit-html
 ```
 
@@ -22,12 +25,16 @@ yarn global add yarn-audit-html
 
 To generate a report, run the following:
 
-```bash
-# Yarn V1
-yarn audit --json | yarn-audit-html
+### Yarn V1
 
-# Yarn V2+
-yarn npm audit --json | yarn-audit-html
+```bash
+yarn audit --json | yarn yarn-audit-html
+```
+
+### Yarn V2+
+
+```bash
+yarn npm audit --json | yarn yarn-audit-html
 ```
 
 By default, unique vulnerability list will be generated (Grouped by `MODULE_NAME`, `VERSION`, `VULNERABLE_VERSIONS`,
@@ -37,13 +44,13 @@ vulnerabilities, they will be counted.
 If you want to specify the output file, add the `--output` option:
 
 ```bash
-yarn audit --json | yarn-audit-html --output report.html
+yarn audit --json | yarn yarn-audit-html --output report.html
 ```
 
 You can also fully customize the generated report by providing `--template` option followed by your own EJS template:
 
 ```bash
-yarn audit --json | yarn-audit-html --template ./my-awesome-template.ejs
+yarn audit --json | yarn yarn-audit-html --template ./my-awesome-template.ejs
 ```
 
 There is also a possibility to change default theme(materia) to any of available in
@@ -51,14 +58,14 @@ There is also a possibility to change default theme(materia) to any of available
 major release default template will change to dark theme.
 
 ```bash
-yarn audit --json | yarn-audit-html --theme darkly
+yarn audit --json | yarn yarn-audit-html --theme darkly
 ```
 
 If you'd like the generator to exit with non-zero exit code when vulnerabilities are found, you can add the
 `--fatal-exit-code` option:
 
 ```bash
-yarn audit --json | yarn-audit-html --fatal-exit-code
+yarn audit --json | yarn yarn-audit-html --fatal-exit-code
 ```
 
 Inspired by [npm-audit-html](https://github.com/Filiosoft/npm-audit-html) package.
