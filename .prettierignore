@@ -4,4 +4,5 @@ lib/
 fixtures/
 
 *.html
+*.ignore
 *.ignore.*

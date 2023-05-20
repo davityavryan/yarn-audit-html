@@ -7,8 +7,8 @@
     "scripts": {
         "build": "tsc -b",
         "clean": "rm -rf ./lib/*",
-        "lint": "pretty-quick --check --pattern '**/*.ts' --pattern '**/*.js'",
-        "lint:fix": "pretty-quick --verbose --pattern '**/*.ts' --pattern '**/*.js'",
+        "lint": "pretty-quick --check --pattern '**/*.ts' --pattern '**/*.json' --pattern '**/*.yml'",
+        "lint:fix": "pretty-quick --verbose --pattern '**/*.ts' --pattern '**/*.json' --pattern '**/*.yml'",
         "test": "NODE_ENV=test node --test --loader=ts-node/esm --loader=esmock --no-warnings=ExperimentalWarning src/*.test.ts",
         "test:ci": "NODE_ENV=test c8 -r text -r json node --test --loader=ts-node/esm --loader=esmock --test-reporter spec --no-warnings=ExperimentalWarning src/*.test.ts",
         "test:watch": "NODE_ENV=test node --test --watch --loader=ts-node/esm --loader=esmock --no-warnings=ExperimentalWarning src/*.test.ts",
