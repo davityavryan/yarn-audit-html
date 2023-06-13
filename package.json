@@ -21,12 +21,12 @@
     "dependencies": {
         "commander": "^10.0.0",
         "ejs": "~3.1.9",
-        "marked": "^4.3.0"
+        "marked": "^5.1.0"
     },
     "devDependencies": {
         "@types/chai": "^4.3.5",
         "@types/ejs": "^3.1.2",
-        "@types/marked": "^4.3.0",
+        "@types/marked": "^5.0.0",
         "@types/mocha": "^10.0.1",
         "@types/node": "^18.16.3",
         "@types/sinon": "^10.0.14",
