@@ -1,8 +1,8 @@
 # yarn-audit-html
 
-[![](https://img.shields.io/librariesio/release/npm/yarn-audit-html?logo=npm)](https://www.npmjs.com/package/yarn-audit-html)
+[![](https://img.shields.io/npm/v/yarn-audit-html?logo=npm)](https://www.npmjs.com/package/yarn-audit-html)
 [![](https://img.shields.io/npm/dw/yarn-audit-html?logo=npm)](https://www.npmjs.com/package/yarn-audit-html)
-[![](https://img.shields.io/snyk/vulnerabilities/npm/yarn-audit-html.svg?style=flat-square&logo=snyk)](https://snyk.io/test/npm/yarn-audit-html)
+[![](https://snyk.io/test/github/davityavryan/yarn-audit-html/badge.svg)](https://snyk.io/test/github/davityavryan/yarn-audit-html)
 ![](https://img.shields.io/github/last-commit/davityavryan/yarn-audit-html.svg?style=flat-square&logo=github)
 [![](https://img.shields.io/node/v/yarn-audit-html?logo=node.js)](https://github.com/nodejs/release#release-schedule)
 [![](https://flat.badgen.net/packagephobia/install/yarn-audit-html?logo=packagephobia)](https://packagephobia.now.sh/result?p=yarn-audit-html)
