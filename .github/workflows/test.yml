@@ -4,7 +4,7 @@ on:
     push:
         branches: [master, next]
     pull_request:
-        branches: ['master', 'next']
+        branches: ["master", "next"]
 
 jobs:
     build-and-test:
@@ -13,14 +13,14 @@ jobs:
             fail-fast: false
             matrix:
                 experimental: [false] # Shadow CI Jobs
-                node: ['18', '20'] # Refer to https://nodejs.org/en/about/releases/ for supported versions
+                node: ["18", "20"] # Refer to https://nodejs.org/en/about/releases/ for supported versions
 
         name: Test on Node v${{ matrix.node }}
         continue-on-error: ${{ matrix.experimental }}
         steps:
             - uses: szenius/set-timezone@v1.2
               with:
-                  timezoneLinux: 'Etc/GMT-2'
+                  timezoneLinux: "Etc/GMT-2"
 
             - uses: actions/checkout@v3
 
@@ -28,7 +28,7 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node }}
-                  cache: 'yarn'
+                  cache: "yarn"
 
             - name: Setup ignore engines flag for yarn
               run: yarn config set ignore-engines true

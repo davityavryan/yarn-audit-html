@@ -1,8 +1,8 @@
 {
-    "$schema": "https://json.schemastore.org/nycrc",
-    "all": true,
-    "include": ["src/**"],
-    "exclude": ["fixtures", "src/**/*.ignore*", "src/**/*.test.ts", "src/types.ts"],
-    "reporter": ["html", "text", "text-summary", "json"],
-    "output": "reports"
+	"$schema": "https://json.schemastore.org/nycrc",
+	"all": true,
+	"include": ["src/**"],
+	"exclude": ["fixtures", "src/**/*.ignore*", "src/**/*.test.ts", "src/types.ts"],
+	"reporter": ["html", "text", "text-summary", "json"],
+	"output": "reports"
 }
