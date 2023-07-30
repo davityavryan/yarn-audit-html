@@ -1,6 +1,6 @@
 {
 	"name": "yarn-audit-html",
-	"version": "7.2.1-rc.0",
+	"version": "7.3.0",
 	"description": "Generate a HTML report for Yarn Audit",
 	"type": "module",
 	"license": "MIT",
