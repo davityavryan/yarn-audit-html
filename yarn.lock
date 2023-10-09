@@ -458,9 +458,9 @@ escape-string-regexp@^2.0.0:
   integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
 
 esmock@^2.3.3:
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/esmock/-/esmock-2.3.5.tgz#f35fe30d648e2484ad73e29336a70cbd1d49974e"
-  integrity sha512-/Tt1goSUzBI3yKecJSgxBSoMMhGUtlhHA3PluCmdG/L6CRpzV8LmyGkStkdGcRdfHOzfDsqQioGcCFAdK11ZnA==
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/esmock/-/esmock-2.5.2.tgz#b2cb217939e3110516a254b38a2a4998fa9ec810"
+  integrity sha512-XZUzyaM02xs9ZwhOkWRQ3JIfRe5qdaN935fsRgkOAXPzZomz+HUq+t0YsDipHzA9X6ke89FerZDRAMDgchBjeQ==
 
 execa@^7.0.0:
   version "7.2.0"
