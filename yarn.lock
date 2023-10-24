@@ -440,9 +440,9 @@ escape-string-regexp@^2.0.0:
   integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
 
 esmock@^2.3.3:
-  version "2.5.7"
-  resolved "https://registry.yarnpkg.com/esmock/-/esmock-2.5.7.tgz#74b000c5f87f5b3f5454b78c6bb21126e433b7e3"
-  integrity sha512-aDRZLbBiXOOS9UUAQzQRdRqghiSkLQYudgc2HfilxIv4iNMcPyXB753cWXgMy+lz26gLbakg+hgKAtqbjrETkg==
+  version "2.5.8"
+  resolved "https://registry.yarnpkg.com/esmock/-/esmock-2.5.8.tgz#36f272284be0ee4c07190b1002cce3bb559b60ee"
+  integrity sha512-Lvn8OhAvdM+OBgIkljnG8WNPayDN4vMyoHaKGnXnM4J7T3bE6qztUWHd7cnbnyW0ueLQRT/3bS6SoHnBN1hEsg==
 
 eventemitter3@^5.0.1:
   version "5.0.1"
